@@ -1,0 +1,30 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity latch is port
+(din:  in  std_logic_vector(7 downto 0);
+dout: out std_logic_vector(7 downto 0);
+req:  in  std_logic;
+rst:  in  std_logic;
+ack:  out std_logic);
+end latch;
+
+architecture Behavioral of latch is
+begin
+process(req,rst)
+begin
+if (rst='0') then
+	if (rising_edge(req)) then
+	 dout <= din;
+	end if;
+elsif (rst='1') then
+   dout <= x"01";
+end if;
+if req='1' then
+ ack <='1';
+else
+ ack <='0';
+end if;
+end process;
+end Behavioral;
+
